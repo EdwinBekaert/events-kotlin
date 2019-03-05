@@ -1,7 +1,14 @@
 # Learning Kotlin
 
-I am building an Entity framework in order to learn the ins and outs of the Kotlin language.
+I am building some sort of entity framework in order to learn the ins and outs of the Kotlin language.
+I will implement an event application. 
 I appreciate your constructive feedback.
+
+Uses:
+- Kotlin
+- Gradle
+- Exposed with H2 database
+- more to come...
 
 #### What I discovered so far:
 1. **Singleton** = object. 
@@ -29,7 +36,7 @@ I appreciate your constructive feedback.
     }
     ```  
     
-2. **inline reified**
+2. **Inline Reified**
     
     inline reified allows you to do ```D::class.java.canonicalName```: 
     ``` 
@@ -48,7 +55,7 @@ I appreciate your constructive feedback.
 
     ```private val eventSrv by lazy { bl.event.Srv(mngr = eventMngr) }```
     
-4. useful **extension functions**
+4. Useful **extension functions**
    
    getOrPut() & getOrDefault() on a map
    
@@ -125,7 +132,7 @@ I appreciate your constructive feedback.
             throw IllegalArgumentException("$key not present in args")
         } as T
     ```
-7. **companion object**
+7. **Companion Object**
     
     Each entity needed a way to communicate its primary key without instantiating the object.
     A companion object gathers static methods and properties accessible without instantiation.
@@ -162,7 +169,7 @@ I appreciate your constructive feedback.
     }
     ```
     
-9. **Delegated properties** 
+9. **Delegated Properties** 
     
     I want to track the ```dirty fields``` in a map with their historical values.
     So I created a class for property delegation that implements ```ObservableProperty```. 
