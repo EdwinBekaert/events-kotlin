@@ -1,5 +1,5 @@
-group 'be.bekaert.edwin'
-version '5.0-SNAPSHOT'
+group 'be.kaert.edwin'
+version '1.0'
 
 //apply plugin: 'java'
 apply plugin: 'kotlin'
