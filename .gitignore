@@ -1,0 +1,58 @@
+### IDE
+
+.idea/
+out/
+
+# CMake
+cmake-build-*/
+
+# File-based project format
+*.iws
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+### JAVA
+
+# gradle
+.gradle
+gradle/
+/build/
+
+### WINDOWS
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+
+#.idea/
+#.gradle/
+#out/
+#gradle/
