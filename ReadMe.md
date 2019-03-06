@@ -99,18 +99,6 @@ Uses:
         fun Query?.whenRow(callback: (ResultRow)->Unit) = this?.firstOrNull()?.let(callback)
         ```
         
-        We could use it as argument: ```private fun getEntById(objReq: Req, args: Args): Ent```
-        
-        ```
-        val args = argsOf(
-            "eventId" to 3333L,
-            "eventCode" to "event_code_2546861"
-        )
-        
-        val seatPrice: Double? = args.getOrDefaultCasted(key = this::seatPrice.name, defaultValue = seatPrice)
-        val entId: Long = args.getOrErrorCasted(primaryKey) // we need an id
-        ```
-        
 6. Build my own **type alias** and discover the **spread operator** 
 
     I pass around the ```args``` argument quite often which is a key/value map. I also repeated the same code on the values like casting, null checking and throwing errors when key is not in the map. This is how I typed this behaviour:
@@ -131,6 +119,19 @@ Uses:
             throw IllegalArgumentException("$key not present in args")
         } as T
     ```
+    
+    We could use it as argument: ```private fun getEntById(objReq: Req, args: Args): Ent```
+            
+    ```
+    val args = argsOf(
+        "eventId" to 3333L,
+        "eventCode" to "event_code_2546861"
+    )
+    
+    val seatPrice: Double? = args.getOrDefaultCasted(key = this::seatPrice.name, defaultValue = seatPrice)
+    val entId: Long = args.getOrErrorCasted(primaryKey) // we need an id
+    ```
+    
 7. **Companion Object**
     
     Each entity needed a way to communicate its primary key without instantiating the object.
