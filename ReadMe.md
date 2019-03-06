@@ -96,8 +96,7 @@ Uses:
         ```
         here's the extension method:
         ```
-        fun <T, R: Any> Iterable<T>?.whenRow(callback: (T) -> R): List<R>?
-                = this.let { this?.mapNotNullTo(ArrayList(), callback) }
+        fun Query?.whenRow(callback: (ResultRow)->Unit) = this?.firstOrNull()?.let(callback)
         ```
         
         We could use it as argument: ```private fun getEntById(objReq: Req, args: Args): Ent```
