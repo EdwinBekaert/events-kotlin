@@ -1,5 +1,6 @@
 package bl
 
+import base.Dao
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -55,15 +56,14 @@ object App {
     // TODO well... dao objects cannot be private... no point in factoring then...
 
     @JvmStatic
-    inline fun <reified D: base.Dao> getDao() =
-        when (D::class.java.canonicalName) {
-            "bl.venue.Dao" -> venueDao as D
-            "bl.event.Dao" -> eventDao as D
-            "bl.event.AnotherDao" -> eventAnotherDao as D
-            "bl.country.Dao" -> countryDao as D
-            else -> throw IllegalArgumentException("object ${D::class.java.canonicalName} is not yet defined in App.")
-        }
-
+    inline fun <reified D : Dao> getDao() =
+            when (D::class) {
+                bl.venue.Dao::class -> venueDao as D
+                bl.event.Dao::class -> eventDao as D
+                bl.event.AnotherDao::class -> eventAnotherDao as D
+                bl.country.Dao::class -> countryDao as D
+                else -> throw IllegalArgumentException("object ${D::class.java.canonicalName} is not yet defined in App.")
+            }
 
 }
 

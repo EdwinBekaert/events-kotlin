@@ -38,15 +38,17 @@ Uses:
     
 2. **Inline Reified**
     
-    inline reified allows you to do ```D::class.java.canonicalName```: 
+    inline reified allows you to do ```D::class```: 
     ``` 
-    inline fun <reified D: base.Dao> getDao() =
-          when (D::class.java.canonicalName) {
-            "bl.venue.Dao" -> venueDao as D
-            "bl.event.Dao" -> eventDao as D
-            "bl.event.AnotherDao" -> eventAnotherDao as D
-            else -> throw IllegalArgumentException("object ${D::class.java.canonicalName} is not yet defined in App.")
-    } 
+    @JvmStatic
+    inline fun <reified D : Dao> getDao() =
+            when (D::class) {
+                bl.venue.Dao::class -> venueDao as D
+                bl.event.Dao::class -> eventDao as D
+                bl.event.AnotherDao::class -> eventAnotherDao as D
+                bl.country.Dao::class -> countryDao as D
+                else -> throw IllegalArgumentException("object ${D::class.java.canonicalName} is not yet defined in App.")
+            }
     ```
     
     however venueDao & eventDao need to be public properties as the whole method will be inlined in the caller object.
