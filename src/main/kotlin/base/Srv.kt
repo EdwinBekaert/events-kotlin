@@ -33,7 +33,7 @@ abstract class Srv(private val mngr: Mngr) : SrvInterface, SrvHooks() {
 
     internal fun getEntById(objReq: Req, args: Args): Ent {
         val entId: Long = args.getOrErrorCasted(primaryKey)
-        val objDao: Dao = mngr.getDao()
+        val objDao = mngr.getDao() as DaoId // cast to Dao that uses ID
         return objDao.dbTrans {
             val qryData = objDao.getDetails(id = entId)
             getEntByData(objReq = objReq, args = args, qryData = qryData)
@@ -42,7 +42,7 @@ abstract class Srv(private val mngr: Mngr) : SrvInterface, SrvHooks() {
 
     internal fun getEntByCode(objReq: Req, args: Args): Ent {
         val entCode: String = args.getOrErrorCasted(primaryKey)
-        val objDao: Dao = mngr.getDao()
+        val objDao = mngr.getDao() as DaoCode
         return objDao.dbTrans {
             val qryData = objDao.getDetails(code = entCode)
             getEntByData(objReq = objReq, args = args, qryData = qryData)
