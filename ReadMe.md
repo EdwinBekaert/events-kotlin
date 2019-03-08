@@ -100,6 +100,15 @@ Uses:
         ```
         fun Query?.whenRow(callback: (ResultRow)->Unit) = this?.firstOrNull()?.let(callback)
         ```
+    + **tryGetFirst**
+    
+        Get the value of a column from the first row of the query or return null.
+        
+        ``` val countryCode: String? = qryData.tryGetFirst(Venues.country_code) ```
+        
+        here's the extension:
+        
+        ``` fun <R> Query?.tryGetFirst(col: Expression<R>) = this?.firstOrNull()?.tryGet(col) ```
         
 6. Build my own **type alias** and discover the **spread operator** 
 
