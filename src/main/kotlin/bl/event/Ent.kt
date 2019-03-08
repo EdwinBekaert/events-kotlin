@@ -5,7 +5,6 @@ import base.EntDelegate
 import base.getOrDefaultCasted
 import base.whenRow
 import data.Events
-import data.Venues
 import org.jetbrains.exposed.sql.Query
 
 class Ent (qryData: Query? = null, args: Args) : base.Ent(args = args) {
@@ -22,12 +21,12 @@ class Ent (qryData: Query? = null, args: Args) : base.Ent(args = args) {
 
     // init after prop definitions otherwise not accessible
     init {
+
         qryData.whenRow {
             eventId = it[Events.event_id]
             eventCode = it[Events.event_name]
             seatPrice = it[Events.seat_price]
             seatPriceEuro = it[Events.seat_price_euro]
-            println(it[Venues.venue_id])
         }
 
         // set args to override TODO this:: or Ent:: ???

@@ -25,7 +25,7 @@ abstract class Srv(private val mngr: Mngr) : SrvInterface, SrvHooks() {
     }
 
     // internal methods
-    internal fun <E: Ent> getEntByData(objReq: Req, args: Args, qryData: Query?): E {
+    internal fun <E: Ent> getEntByData(objReq: Req, args: Args, qryData: Query? = null): E {
         val objEnt = mngr.getEnt(objReq = objReq, args = args, qryData = qryData)
         whenEnt(objEnt = objEnt, qryData = qryData, objReq = objReq) // make the hook when entity is filled... for package specific handling
         return objEnt as E

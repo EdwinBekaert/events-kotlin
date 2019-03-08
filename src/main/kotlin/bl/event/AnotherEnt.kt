@@ -15,7 +15,7 @@ class AnotherEnt (qryData: Query? = null, args: Args): base.Ent(args = args) {
     var anotherCode: String? by EntDelegate(dirtyFields = this.dirtyFields)
 
     init {
-        qryData.whenRow{
+        qryData.whenRow {
             anotherId = it[MeAnother.another_id]
             anotherCode = it[MeAnother.another_name]
         }

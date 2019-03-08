@@ -34,7 +34,7 @@ class Srv(private val mngr: Mngr) : Srv(mngr = mngr) {
                 println("id is dirty $eventId")
             }
 
-            // == this::eventCode.name
+            // :: == this::eventCode.name
             whenDirty(::eventCode.name){
                 println("event code is dirty. Current value: ${objEnt.eventCode}")
                 it.forEach { println(it) } // print all history
