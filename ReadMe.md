@@ -5,9 +5,9 @@ I will implement an event application.
 I appreciate your constructive feedback.
 
 Uses:
-- Kotlin
+- <a href="https://github.com/JetBrains/kotlin" target="_blank">Kotlin</a>
 - Gradle
-- Exposed with H2 database
+- <a href="https://github.com/JetBrains/Exposed" target="_blank">Exposed</a> with <a href="https://github.com/h2database/h2database" target="_blank">H2 database</a>
 - more to come...
 
 #### What I discovered so far:
