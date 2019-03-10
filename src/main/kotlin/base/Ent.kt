@@ -13,10 +13,9 @@ abstract class Ent(open val qryData: Query?, open val args: Args) : Base() {
     fun <V> getArgValue(key: String): V = args.getCasted(key = key)
 
     // execute code when a field is dirty / not dirty
-    fun whenDirty(key: String, block: (history: DirtyFieldHistory) -> Unit) = if(dirtyFields.containsKey(key)) block(dirtyFields.get(key)!!) else Unit
+    fun whenDirty(key: String, block: (history: DirtyFieldHistory) -> Unit) = if(dirtyFields.containsKey(key)) block(dirtyFields[key]!!) else Unit
     fun whenNotDirty(key: String, block: () -> Unit) = if( ! dirtyFields.containsKey(key)) block() else Unit
-
-    fun isDirty() = dirtyFields.count()
+    // when dirty on entity
     fun whenDirty(block: (DirtyFields) -> Unit) = if(this.isDirty()) block(dirtyFields) else Unit
     fun isDirty() = dirtyFields.count() > 0
 
