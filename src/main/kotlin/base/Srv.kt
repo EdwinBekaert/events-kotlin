@@ -25,13 +25,13 @@ abstract class Srv(private val mngr: Mngr) : SrvInterface, SrvHooks() {
     }
 
     // internal methods
-    internal fun <E: Ent> getEntByData(objReq: Req, args: Args, qryData: Query? = null): E {
+    fun <E: Ent> getEntByData(objReq: Req, args: Args, qryData: Query? = null): E {
         val objEnt = mngr.getEnt(objReq = objReq, args = args, qryData = qryData)
-        whenEnt(objEnt = objEnt, qryData = qryData, objReq = objReq) // make the hook when entity is filled... for package specific handling
+        whenEnt(objEnt = objEnt, objReq = objReq) // make the hook when entity is filled... for package specific handling
         return objEnt as E
     }
 
-    internal fun getEntById(objReq: Req, args: Args): Ent {
+    fun getEntById(objReq: Req, args: Args): Ent {
         val entId: Long = args.getOrErrorCasted(primaryKey)
         val objDao = mngr.getDao() as DaoId // cast to Dao that uses ID
         return objDao.dbTrans {
@@ -40,12 +40,12 @@ abstract class Srv(private val mngr: Mngr) : SrvInterface, SrvHooks() {
         }
     }
 
-    internal fun getEntByCode(objReq: Req, args: Args): Ent {
+    fun <E: Ent> getEntByCode(objReq: Req, args: Args): E {
         val entCode: String = args.getOrErrorCasted(primaryKey)
         val objDao = mngr.getDao() as DaoCode
         return objDao.dbTrans {
             val qryData = objDao.getDetails(code = entCode)
-            getEntByData(objReq = objReq, args = args, qryData = qryData)
+            getEntByData(objReq = objReq, args = args, qryData = qryData) as E
         }
     }
 
@@ -88,14 +88,5 @@ abstract class Srv(private val mngr: Mngr) : SrvInterface, SrvHooks() {
 	} // getEntAndSpecs
 
  */
-
-
-    //
-    // Hooks need to go into the package level service object
-    // TODO any other way to make the hooks? cannot be abstract as these methods become OPEN...
-    // TODO cannot be Interface as these methods become open...
-    /*protected open fun whenEnt(objEnt: Ent, objReq: Req, args: Args) {
-        throw IllegalArgumentException("You should override this method")
-    }*/
 
 }
