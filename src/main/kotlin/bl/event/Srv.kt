@@ -15,6 +15,7 @@ class Srv(private val mngr: Mngr) : Srv(mngr = mngr) {
     // hook when Ent is created
     override fun whenEnt(objEnt: base.Ent, objReq: Req) {
         // TODO what about this cast?
+
         with(objEnt as Ent){
             // get another ent from the same package
             anotherEnt = getAnotherEntById(args = argsOf(Ent.primaryKey to objEnt.eventId), objReq = objReq)
@@ -22,7 +23,7 @@ class Srv(private val mngr: Mngr) : Srv(mngr = mngr) {
             // get another ent from the another package
             // both event & venue are queried together, so pass qry & args to getEntByData() and create venue ent
             val venueSrv = mngr.getMngr(Pkgs.VENUE).getSrv()
-            venue = venueSrv.getEntByData(objReq = objReq, args = objEnt.args, qryData = qryData)
+            venue = venueSrv.getEntByData(objReq = objReq, args = objEnt.args, qryData = objEnt.qryData)
             venue.whenDirty(venue::venueId.name){
                 // when Id is changed reload data
                 // also check currency
