@@ -7,7 +7,7 @@ import base.whenRow
 import data.MeAnother
 import org.jetbrains.exposed.sql.Query
 
-class AnotherEnt (qryData: Query? = null, args: Args): base.Ent(args = args) {
+class AnotherEnt (override val qryData: Query? = null, args: Args): base.Ent(qryData = qryData, args = args) {
 
     companion object { val primaryKey = AnotherEnt::anotherId.name}
 

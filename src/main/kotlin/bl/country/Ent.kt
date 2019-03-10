@@ -7,7 +7,7 @@ import base.whenRow
 import data.Countries
 import org.jetbrains.exposed.sql.Query
 
-class Ent (qryData: Query? = null, args: Args) : base.Ent(args = args){
+class Ent (override val qryData: Query? = null, override val args: Args) : base.Ent(qryData = qryData, args = args){
 
     companion object { val primaryKey = Ent::countryCode.name}
 

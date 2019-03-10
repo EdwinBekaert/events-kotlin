@@ -13,7 +13,7 @@ class Srv(private val mngr: Mngr) : Srv(mngr = mngr) {
     override val primaryKey = Ent.primaryKey // gives base service access to id
 
     // hook when Ent is created
-    override fun whenEnt(objEnt: base.Ent, qryData: Query?, objReq: Req) {
+    override fun whenEnt(objEnt: base.Ent, objReq: Req) {
         // TODO what about this cast?
         with(objEnt as Ent){
             // get another ent from the same package

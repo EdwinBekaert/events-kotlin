@@ -1,9 +1,11 @@
 package base
 
-abstract class Ent(val args: Args) : Base() {
+import org.jetbrains.exposed.sql.Query
+
+abstract class Ent(open val qryData: Query?, open val args: Args) : Base() {
 
     // TODO how to force children to have this object / primary Key ???
-    companion object { open val primaryKey = "id"} // no need to init to see this prop
+    companion object { const val primaryKey = "id"} // no need to init to see this prop
 
     protected val dirtyFields = dirtyFieldsOf() // see typeAlias DirtyFields
 
@@ -15,6 +17,8 @@ abstract class Ent(val args: Args) : Base() {
     fun whenNotDirty(key: String, block: () -> Unit) = if( ! dirtyFields.containsKey(key)) block() else Unit
 
     fun isDirty() = dirtyFields.count()
+    fun whenDirty(block: (DirtyFields) -> Unit) = if(this.isDirty()) block(dirtyFields) else Unit
+    fun isDirty() = dirtyFields.count() > 0
 
 }
 
