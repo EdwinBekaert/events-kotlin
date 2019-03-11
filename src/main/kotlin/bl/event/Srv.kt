@@ -6,7 +6,6 @@ import base.argsOf
 import base.getOrErrorCasted
 import bl.Pkgs
 import bl.Req
-import org.jetbrains.exposed.sql.Query
 
 class Srv(private val mngr: Mngr) : Srv(mngr = mngr) {
 
@@ -30,17 +29,17 @@ class Srv(private val mngr: Mngr) : Srv(mngr = mngr) {
                 println(it)
             }
 
-            // TODO this:: or Ent:: or objEnt:: or ::
-            whenDirty(objEnt::eventId.name){
-                println("id is dirty $eventId")
+            whenDirty {
+                // TODO this:: or Ent:: or objEnt:: or ::
+                whenDirty(objEnt::eventId.name){
+                    println("id is dirty $eventId")
+                }
+                // :: == this::eventCode.name
+                whenDirty(::eventCode.name){
+                    println("event code is dirty. Current value: ${objEnt.eventCode}")
+                    it.forEach(::println) // print all history
+                }
             }
-
-            // :: == this::eventCode.name
-            whenDirty(::eventCode.name){
-                println("event code is dirty. Current value: ${objEnt.eventCode}")
-                it.forEach { println(it) } // print all history
-            }
-
         }
     }
 
